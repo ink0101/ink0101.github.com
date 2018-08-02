@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="JavaScript部分JavaScript中箭头函数和普通函数的区别？箭头函数和普通函数的区别 MVC 模式是什么？为什么现在前端框架不再使用？MVC： Model、View、Controller 维基百科上的解释：  Model: 程序员编写程序应有的功能（实现算法等等）、数据库专家进行数据管理和数据库设计(可以实现具体的功能) View: 界面设计人员进行图形界面设计 Controller：">
+<meta name="keywords" content="JavaScript,学习笔记,CSS,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自问自答系列">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/自问自答系列/index.html">
+<meta property="og:site_name" content="ink0101&#39;s Notes">
+<meta property="og:description" content="JavaScript部分JavaScript中箭头函数和普通函数的区别？箭头函数和普通函数的区别 MVC 模式是什么？为什么现在前端框架不再使用？MVC： Model、View、Controller 维基百科上的解释：  Model: 程序员编写程序应有的功能（实现算法等等）、数据库专家进行数据管理和数据库设计(可以实现具体的功能) View: 界面设计人员进行图形界面设计 Controller：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/06/27/自问自答系列/mvc.png">
+<meta property="og:updated_time" content="2018-08-02T11:44:58.698Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自问自答系列">
+<meta name="twitter:description" content="JavaScript部分JavaScript中箭头函数和普通函数的区别？箭头函数和普通函数的区别 MVC 模式是什么？为什么现在前端框架不再使用？MVC： Model、View、Controller 维基百科上的解释：  Model: 程序员编写程序应有的功能（实现算法等等）、数据库专家进行数据管理和数据库设计(可以实现具体的功能) View: 界面设计人员进行图形界面设计 Controller：">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/27/自问自答系列/mvc.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/自问自答系列/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>自问自答系列 | ink0101's Notes</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8f5e395c6947dd4f4a67a5d64171f869";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ink0101's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+    <a href="/404/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />公益 404</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/自问自答系列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ink0101">
+      <meta itemprop="description" content="前端学习，包括JavaScript，Html, Css, React, Webpack, 思维导图等。">
+      <meta itemprop="image" content="http://imgsrc.baidu.com/imgad/pic/item/b3b7d0a20cf431ad73c8c61a4136acaf2edd98ff.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ink0101's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自问自答系列
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-27 15:54:26" itemprop="dateCreated datePublished" datetime="2018-06-27T15:54:26+08:00">2018-06-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-02 19:44:58" itemprop="dateModified" datetime="2018-08-02T19:44:58+08:00">2018-08-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="JavaScript部分"><a href="#JavaScript部分" class="headerlink" title="JavaScript部分"></a>JavaScript部分</h3><h4 id="JavaScript中箭头函数和普通函数的区别？"><a href="#JavaScript中箭头函数和普通函数的区别？" class="headerlink" title="JavaScript中箭头函数和普通函数的区别？"></a>JavaScript中箭头函数和普通函数的区别？</h4><p><a href="https://www.cnblogs.com/Eden-cola/p/Function-and-Arrow-function.html" target="_blank" rel="noopener">箭头函数和普通函数的区别</a></p>
+<h4 id="MVC-模式是什么？为什么现在前端框架不再使用？"><a href="#MVC-模式是什么？为什么现在前端框架不再使用？" class="headerlink" title="MVC 模式是什么？为什么现在前端框架不再使用？"></a>MVC 模式是什么？为什么现在前端框架不再使用？</h4><p>MVC： Model、View、Controller</p>
+<p>维基百科上的解释：</p>
+<ul>
+<li>Model: 程序员编写程序应有的功能（实现算法等等）、数据库专家进行数据管理和数据库设计(可以实现具体的功能)</li>
+<li>View: 界面设计人员进行图形界面设计</li>
+<li>Controller：负责转发请求，对请求进行处理</li>
+</ul>
+<a id="more"></a>
+<p><img src="/2018/06/27/自问自答系列/mvc.png" alt="mvc结构"></p>
+<p>图片来自维基百科。</p>
+<p>MVC这个概念来自软件工程，是一种软件架构模式。MVC 不是一种技术，而是一种理念。</p>
+<p>由于现在的web应用复杂度增加，已经可以作为一个应用看待，所以前端也有前端的架构模式。如 React + Redux, Vue + Vuex 等。但是前端的架构目前的主流架构模式应该是MVVM模式。</p>
+<p>参考：</p>
+<p><a href="https://juejin.im/post/5ac0f6a8f265da238d50dc17" target="_blank" rel="noopener">Mvvm 前端数据流框架精讲</a></p>
+<h4 id="Flux架构是什么？"><a href="#Flux架构是什么？" class="headerlink" title="Flux架构是什么？"></a>Flux架构是什么？</h4><p>在前端这块，React标榜自己是整个软件的V部分，在React中采用了Flux作为前端应用的架构模式。Flux相当于前端项目中的M和C的部分。</p>
+<p>为什么需要这个架构呢？</p>
+<p>因为React只是DOM的一个抽象层，并不是web应用的完整解决方案。web应用发展到今天，已经可以作为一个完整的软件项目对待了。</p>
+<p>只有React的话，有两个方面是没法涉及到的：</p>
+<ul>
+<li>代码结构</li>
+<li>组件直接的通信</li>
+</ul>
+<p>所以如果搭建大型应用，就必须要搭建一个前端框架： React  + Flux，之后Flux和函数式编程结合，诞生了Redux，所以目前搭建大型应用都是使用 React + Redux 的模式。</p>
+<p>但是也不是所有的项目都要用到Redux, 只有项目足够复杂，React无法解决问题，才需要引入Redux, Redux的适用场景：</p>
+<ul>
+<li>多交互</li>
+<li>多数据源</li>
+</ul>
+<p>参考： </p>
+<p><a href="https://blog.csdn.net/u010377383/article/details/79080302" target="_blank" rel="noopener">深入浅出React+Redux（三：Flux单向数据流，相关代码在github flux分支）</a></p>
+<h4 id="React中单项数据流指的是什么？有什么优势？"><a href="#React中单项数据流指的是什么？有什么优势？" class="headerlink" title="React中单项数据流指的是什么？有什么优势？"></a>React中单项数据流指的是什么？有什么优势？</h4><p>前端现在的的三大主流框架都是MVVM的模式（React也算是，和Redux或者Mobx结合？），但是Vue和Angular是双向数据绑定，React是单向数据绑定，需要用户手动绑定 View =》 Model 的数据流向。</p>
+<ul>
+<li>内置MVVM<ul>
+<li>Vue</li>
+<li>Angular </li>
+</ul>
+</li>
+<li>解耦MVVM<ul>
+<li>React（Redux, Mobx） </li>
+<li>需要中间层和框架衔接</li>
+</ul>
+</li>
+</ul>
+<h3 id="css部分"><a href="#css部分" class="headerlink" title="css部分"></a>css部分</h3><h4 id="vw和vh的区别？"><a href="#vw和vh的区别？" class="headerlink" title="vw和vh的区别？"></a>vw和vh的区别？</h4><ul>
+<li>vw</li>
+<li>vh</li>
+<li>em</li>
+<li>rem</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/26/微信小程序-一-简介/" rel="next" title="微信小程序(一) —— 简介">
+                <i class="fa fa-chevron-left"></i> 微信小程序(一) —— 简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/17/this的几种常见使用场景/" rel="prev" title="This的几种常见使用场景">
+                This的几种常见使用场景 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzI2MS8xMzc5NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://imgsrc.baidu.com/imgad/pic/item/b3b7d0a20cf431ad73c8c61a4136acaf2edd98ff.jpg"
+                alt="ink0101" />
+            
+              <p class="site-author-name" itemprop="name">ink0101</p>
+              <p class="site-description motion-element" itemprop="description">前端学习，包括JavaScript，Html, Css, React, Webpack, 思维导图等。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/ink0101" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript部分"><span class="nav-number">1.</span> <span class="nav-text">JavaScript部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript中箭头函数和普通函数的区别？"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript中箭头函数和普通函数的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVC-模式是什么？为什么现在前端框架不再使用？"><span class="nav-number">1.2.</span> <span class="nav-text">MVC 模式是什么？为什么现在前端框架不再使用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flux架构是什么？"><span class="nav-number">1.3.</span> <span class="nav-text">Flux架构是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#React中单项数据流指的是什么？有什么优势？"><span class="nav-number">1.4.</span> <span class="nav-text">React中单项数据流指的是什么？有什么优势？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css部分"><span class="nav-number">2.</span> <span class="nav-text">css部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vw和vh的区别？"><span class="nav-number">2.1.</span> <span class="nav-text">vw和vh的区别？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ink0101</span>
+
+  
+
+  
+</div>
+
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共7.0k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  
+    <script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

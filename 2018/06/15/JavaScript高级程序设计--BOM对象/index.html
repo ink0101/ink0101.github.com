@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ES 标准是 JavaScript 核心，但是在 Web 中使用 JavaScript，BOM（浏览器对象模型）才是真正的核心。 W3C为了将浏览器中的 JavaScript 最基本的部分标准化，已经将 BOM 的主要方面纳入了 HTML5 规范。">
+<meta name="keywords" content="JavaScript,学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript 高级程序设计》-- BOM对象">
+<meta property="og:url" content="http://yoursite.com/2018/06/15/JavaScript高级程序设计--BOM对象/index.html">
+<meta property="og:site_name" content="ink0101&#39;s Notes">
+<meta property="og:description" content="ES 标准是 JavaScript 核心，但是在 Web 中使用 JavaScript，BOM（浏览器对象模型）才是真正的核心。 W3C为了将浏览器中的 JavaScript 最基本的部分标准化，已经将 BOM 的主要方面纳入了 HTML5 规范。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/JavaScript高级程序设计--BOM对象/BOM.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/15/JavaScript高级程序设计--BOM对象/window.png">
+<meta property="og:updated_time" content="2018-07-17T14:05:03.581Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《JavaScript 高级程序设计》-- BOM对象">
+<meta name="twitter:description" content="ES 标准是 JavaScript 核心，但是在 Web 中使用 JavaScript，BOM（浏览器对象模型）才是真正的核心。 W3C为了将浏览器中的 JavaScript 最基本的部分标准化，已经将 BOM 的主要方面纳入了 HTML5 规范。">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/15/JavaScript高级程序设计--BOM对象/BOM.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/15/JavaScript高级程序设计--BOM对象/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>《JavaScript 高级程序设计》-- BOM对象 | ink0101's Notes</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8f5e395c6947dd4f4a67a5d64171f869";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ink0101's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+    <a href="/404/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />公益 404</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/15/JavaScript高级程序设计--BOM对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ink0101">
+      <meta itemprop="description" content="前端学习，包括JavaScript，Html, Css, React, Webpack, 思维导图等。">
+      <meta itemprop="image" content="http://imgsrc.baidu.com/imgad/pic/item/b3b7d0a20cf431ad73c8c61a4136acaf2edd98ff.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ink0101's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《JavaScript 高级程序设计》-- BOM对象
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-15 13:40:06" itemprop="dateCreated datePublished" datetime="2018-06-15T13:40:06+08:00">2018-06-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-07-17 22:05:03" itemprop="dateModified" datetime="2018-07-17T22:05:03+08:00">2018-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ES 标准是 JavaScript 核心，但是在 Web 中使用 JavaScript，BOM（浏览器对象模型）才是真正的核心。</p>
+<p>W3C为了将浏览器中的 JavaScript 最基本的部分标准化，已经将 BOM 的主要方面纳入了 HTML5 规范。</p>
+<a id="more"></a>
+<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>BOM 主要由 window 对象、location 对象、navigator 对象、screen 对象、history 对象几部分， 如下图：</p>
+<p><img src="/2018/06/15/JavaScript高级程序设计--BOM对象/BOM.png" alt="总览"></p>
+<h2 id="window-对象"><a href="#window-对象" class="headerlink" title="window 对象"></a>window 对象</h2><ul>
+<li>BOM的核心对象是window对象，表示一个浏览器的实例。</li>
+<li>window 对象同时还是 ES 规定的 Global 对象。</li>
+</ul>
+<p>主要涉及以下几个部分内容：</p>
+<p><img src="/2018/06/15/JavaScript高级程序设计--BOM对象/window.png" alt="window对象"></p>
+<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><p>在所有全局作用域中声明的变量、函数都会变成window对象的属性和方法。前提条件是，执行环境是在浏览器中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.age); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+<p>Global 对象和 window 对象差别：</p>
+<p><strong>全局变量不能通过delete操作符删除，但是定义在window对象上定义的属性可以通过delete删除。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line">&lt;!--在 IE <span class="number">9</span> 前会报错--&gt;</span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.a; <span class="comment">// false</span></span><br><span class="line"><span class="built_in">window</span>.b = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.b; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这是为什么呢？</p>
+<p>原因： 使用 var 语言添加的 window 属性的 [[Configurable]] 的特性值为false。</p>
+<p>全局对象是一个逻辑上的概念，是不能够直接访问的，this指向全局对象，但是在浏览器中，this的指向就是window对象。因此window对象就是全局对象在浏览器中的具体表现。</p>
+<p><a href="https://blog.csdn.net/chenchunlin526/article/details/78908592" target="_blank" rel="noopener">more &gt;&gt; </a></p>
+<h3 id="窗口关系及框架"><a href="#窗口关系及框架" class="headerlink" title="窗口关系及框架"></a>窗口关系及框架</h3><p>每个框架都有自己 window 对象，并且保存在 frames 集合中。</p>
+<p>每个 window 对象都有一个 name 属性，其中包含框架名称。</p>
+<p>访问框架：</p>
+<ul>
+<li>索引： <code>window.frames[0]</code></li>
+<li>框架名称： <code>window.frames[&#39;topFrame&#39;]</code></li>
+<li>✨ top 对象： <code>top.frames[0]</code> （推荐）</li>
+</ul>
+<h4 id="top-对象"><a href="#top-对象" class="headerlink" title="top 对象"></a>top 对象</h4><p>始终指向最外层框架，即浏览器窗口。</p>
+<h4 id="parent-对象"><a href="#parent-对象" class="headerlink" title="parent 对象"></a>parent 对象</h4><p>始终指向当前框架的直接上层框架。</p>
+<h4 id="self-对象"><a href="#self-对象" class="headerlink" title="self 对象"></a>self 对象</h4><p>始终指向window。</p>
+<h4 id="框架造成instanceof判断的问题"><a href="#框架造成instanceof判断的问题" class="headerlink" title="框架造成instanceof判断的问题"></a>框架造成instanceof判断的问题</h4><p>在使用框架的情况下，浏览器会存在多个window对象。每个框架中定义的全局变量会自动成为框架中window对象的属性。由于每个window对象都包含原生类型的构造函数，因此每个框架都有一套自己的构造函数，这些构造函数一一对应，但是却不相等。因此依赖原生的构造函数来判断类型的instanceof操作符就变得不可靠了。</p>
+<h3 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h3><p>跨浏览器取得窗口左边和上边的位置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenLeft === <span class="string">'number'</span>) ?</span><br><span class="line">	<span class="built_in">window</span>.screenLeft : <span class="built_in">window</span>.screenX;</span><br><span class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenTop === <span class="string">'number'</span>) ? </span><br><span class="line">	<span class="built_in">window</span>.screenTop : <span class="built_in">window</span>.screenY;</span><br></pre></td></tr></table></figure>
+<p>实际上，<strong>无法跨浏览器取得窗口左边和上边的精确位置</strong>。因为保存的值实际含义不同。</p>
+<p>不过可以将窗口精确的移动到一个新的位置，通过两个方法：</p>
+<ul>
+<li>moveTo（）- 接收新位置的坐标值</li>
+<li>moveBy（）- 接收水平和垂直方向移动的像素数</li>
+</ul>
+<p>然鹅，这两个方法可能会被浏览器禁用！！！而且这两个方法不适用于框架！</p>
+<h3 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h3><ul>
+<li>innerWidth</li>
+<li>innerHeight</li>
+<li>outerWidth</li>
+<li>outerHeight</li>
+</ul>
+<p>跨浏览器是无法确定浏览器窗口本身的大小的，但是可以取得页面视口的大小：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageWidth = <span class="built_in">window</span>.innerWidth;</span><br><span class="line"><span class="keyword">var</span> pageHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> pageWidth !== <span class="string">'number'</span>) &#123;</span><br><span class="line">	&lt;!--根据<span class="built_in">document</span>.compatMode确定页面是否处于标准模式--&gt;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">document</span>.compatMode === <span class="string">"CSS1Compat"</span>) &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Q: 可见视口和布局视口的区别？</p>
+<p>调整浏览器窗口大小：</p>
+<ul>
+<li>resizeTo() - 接收浏览器窗口的新宽度和新高度</li>
+<li>resizeBy() - 接收新窗口与原窗口的宽度和高度之差</li>
+</ul>
+<p>然鹅，同上，这两个方法同样可能被浏览器禁用！！！同样不适用于框架！</p>
+<h3 id="导航和打开窗口"><a href="#导航和打开窗口" class="headerlink" title="导航和打开窗口"></a>导航和打开窗口</h3><h4 id="window-open"><a href="#window-open" class="headerlink" title="window.open()"></a>window.open()</h4><ul>
+<li>导航到URL</li>
+<li>新打开浏览器窗口</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>要加载的URL</li>
+<li>窗口目标<ul>
+<li>已有窗口或框架名称</li>
+<li>特殊的窗口名称<ul>
+<li>_self</li>
+<li>_parent</li>
+<li>_top</li>
+<li>_blank</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特性字符串 - 逗号分隔的字符串，表示在新窗口中都显示那些特性</li>
+<li>Boolean - 表示新页面是否取代浏览器历史记录中当前加载页面的布尔值</li>
+</ul>
+<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>第二个参数不是已经存在的窗口或框架，就根据第三个参数位置传入的字符串创建一个新窗口或新标签。</p>
+<p>close() - 关闭新打开的窗口，仅适用于window.open（）打开的弹出窗口。</p>
+<h4 id="安全限制"><a href="#安全限制" class="headerlink" title="安全限制"></a>安全限制</h4><p>由于广告窗口太多，浏览器限制窗口打开。</p>
+<h4 id="弹出窗口屏蔽程序"><a href="#弹出窗口屏蔽程序" class="headerlink" title="弹出窗口屏蔽程序"></a>弹出窗口屏蔽程序</h4><p>弹出窗口被屏蔽的情况：</p>
+<ul>
+<li>浏览器内置屏蔽程序阻止的弹出窗口 - 通常返回null</li>
+<li>浏览器扩展或其他程序阻止的弹出窗口 - 通常抛出错误</li>
+</ul>
+<h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h4><p><a href="https://juejin.im/post/5af55b296fb9a07ace58ecc6" target="_blank" rel="noopener">记一次小坑–关于window.open()</a></p>
+<h3 id="间歇调用和超时调用"><a href="#间歇调用和超时调用" class="headerlink" title="间歇调用和超时调用"></a>间歇调用和超时调用</h3><ul>
+<li>setTimeout()</li>
+<li>setInterval()</li>
+</ul>
+<h3 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h3><ul>
+<li>alert()</li>
+<li>confirm()</li>
+<li>prompt()</li>
+</ul>
+<p>外观由操作系统及浏览器设置觉得，不是由CSS决定。这几个方法打开的对话框都是同步和模态的，显示这些对话框的时候代码会停止执行，关掉以后又恢复执行。</p>
+<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><ul>
+<li>保存当前窗口中加载的文档相关信息</li>
+<li>导航功能，将URL解析为独立的片段</li>
+</ul>
+<p>location是一个特殊的对象，既是window对象的属性，也是document对象的属性。</p>
+<h3 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h3><h3 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h3><ul>
+<li>location.assign(‘url’)</li>
+<li>location.href = ‘url’ ,  window.location = ‘url’</li>
+<li>修改location的hash, search, hostname, pathname, port属性</li>
+<li>location.replace(‘’) - 不会生成新的历史记录</li>
+<li>location.reload()</li>
+</ul>
+<h2 id="navigator-对象"><a href="#navigator-对象" class="headerlink" title="navigator 对象"></a>navigator 对象</h2><p>识别客户端浏览器的事实标准。</p>
+<h3 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h3><ul>
+<li>非IE<ul>
+<li>plugins 数组<ul>
+<li>name</li>
+<li>description</li>
+<li>filename</li>
+<li>length  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IE<ul>
+<li>ActiveXObject类型 - 并尝试创建一个特定插件的实例<ul>
+<li>COM 对象 - COM 标识符 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>典型做法 - 针对每个插件分别创建检测函数，而不是前面介绍的通用检测方法</li>
+</ul>
+<h3 id="注册处理程序"><a href="#注册处理程序" class="headerlink" title="注册处理程序"></a>注册处理程序</h3><ul>
+<li>registerContentHandler()<ul>
+<li>参数<ul>
+<li>要处理的MIME类型</li>
+<li>可以处理改MIME类型的页面的URL</li>
+<li>应用程序的名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>registerProtocolHandler()<ul>
+<li>参数<ul>
+<li>要处理的协议</li>
+<li>处理该协议的页面URL</li>
+<li>应用程序名称  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>这两个方法让一个站点指明它可以处理特定类型的信息。</p>
+<h2 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h2><p>基本上只用来表明客户端的能力。<br>这些信息经常集中出现在测定客户端能力的站点跟踪工具中，但是通常不会用于影响功能。</p>
+<h2 id="history-对象"><a href="#history-对象" class="headerlink" title="history 对象"></a>history 对象</h2><p>保存用户上网的历史记录，从窗口被打开的那一刻算起。</p>
+<ul>
+<li>go() - 在用户的历史记录中任意跳转，可以向前也可以向后<ul>
+<li>-1 - 向后一页</li>
+<li>1 - 向前一页</li>
+<li>字符串 - 历史记录中包含该字符串的第一个位置</li>
+</ul>
+</li>
+<li>back() - 后退</li>
+<li>forward() - 前进</li>
+<li>length - 历史记录数量</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/14/JavaScript高级程序设计--函数表达式/" rel="next" title="《JavaScript 高级程序设计》-- 函数表达式">
+                <i class="fa fa-chevron-left"></i> 《JavaScript 高级程序设计》-- 函数表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/26/微信小程序-一-简介/" rel="prev" title="微信小程序(一) —— 简介">
+                微信小程序(一) —— 简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzI2MS8xMzc5NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://imgsrc.baidu.com/imgad/pic/item/b3b7d0a20cf431ad73c8c61a4136acaf2edd98ff.jpg"
+                alt="ink0101" />
+            
+              <p class="site-author-name" itemprop="name">ink0101</p>
+              <p class="site-description motion-element" itemprop="description">前端学习，包括JavaScript，Html, Css, React, Webpack, 思维导图等。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/ink0101" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总览"><span class="nav-number">1.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-对象"><span class="nav-number">2.</span> <span class="nav-text">window 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局作用域"><span class="nav-number">2.1.</span> <span class="nav-text">全局作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口关系及框架"><span class="nav-number">2.2.</span> <span class="nav-text">窗口关系及框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#top-对象"><span class="nav-number">2.2.1.</span> <span class="nav-text">top 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-对象"><span class="nav-number">2.2.2.</span> <span class="nav-text">parent 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#self-对象"><span class="nav-number">2.2.3.</span> <span class="nav-text">self 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#框架造成instanceof判断的问题"><span class="nav-number">2.2.4.</span> <span class="nav-text">框架造成instanceof判断的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口位置"><span class="nav-number">2.3.</span> <span class="nav-text">窗口位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗口大小"><span class="nav-number">2.4.</span> <span class="nav-text">窗口大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导航和打开窗口"><span class="nav-number">2.5.</span> <span class="nav-text">导航和打开窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#window-open"><span class="nav-number">2.5.1.</span> <span class="nav-text">window.open()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#弹出窗口"><span class="nav-number">2.5.2.</span> <span class="nav-text">弹出窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全限制"><span class="nav-number">2.5.3.</span> <span class="nav-text">安全限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#弹出窗口屏蔽程序"><span class="nav-number">2.5.4.</span> <span class="nav-text">弹出窗口屏蔽程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考："><span class="nav-number">2.5.5.</span> <span class="nav-text">参考：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#间歇调用和超时调用"><span class="nav-number">2.6.</span> <span class="nav-text">间歇调用和超时调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统对话框"><span class="nav-number">2.7.</span> <span class="nav-text">系统对话框</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location对象"><span class="nav-number">3.</span> <span class="nav-text">location对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询字符串参数"><span class="nav-number">3.1.</span> <span class="nav-text">查询字符串参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置操作"><span class="nav-number">3.2.</span> <span class="nav-text">位置操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#navigator-对象"><span class="nav-number">4.</span> <span class="nav-text">navigator 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测插件"><span class="nav-number">4.1.</span> <span class="nav-text">检测插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册处理程序"><span class="nav-number">4.2.</span> <span class="nav-text">注册处理程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#screen-对象"><span class="nav-number">5.</span> <span class="nav-text">screen 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#history-对象"><span class="nav-number">6.</span> <span class="nav-text">history 对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ink0101</span>
+
+  
+
+  
+</div>
+
+
+
+<div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共7.0k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  
+    <script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
